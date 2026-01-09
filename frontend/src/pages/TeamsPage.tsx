@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Snackbar, Alert } from '@mui/material';
-import TeamCreationForm from '../components/TeamCreation/TeamCreationForm';
+import NameBankCreation from '../components/TeamCreation/NameBankCreation';
 import ManualTeamCreation from '../components/TeamCreation/ManualTeamCreation';
 import TeamList from '../components/TeamCreation/TeamList';
 import { getTeams } from '../api/teams';
@@ -50,8 +50,8 @@ const TeamsPage: React.FC = () => {
 
   return (
     <Box>
+      <NameBankCreation onTeamsCreated={handleTeamsCreated} />
       <ManualTeamCreation onTeamCreated={handleTeamCreated} />
-      <TeamCreationForm onTeamsCreated={handleTeamsCreated} />
       <TeamList teams={teams} onTeamDeleted={handleTeamDeleted} />
 
       <Snackbar
