@@ -32,7 +32,7 @@ const GameCard: React.FC<GameCardProps> = ({ game, onResultSubmitted }) => {
         <CardContent>
           <Box sx={{ mb: 2 }}>
             <Typography variant="caption" color="text.secondary">
-              Game #{game.id}
+              Partie #{game.id}
             </Typography>
           </Box>
 
@@ -73,7 +73,7 @@ const GameCard: React.FC<GameCardProps> = ({ game, onResultSubmitted }) => {
             sx={{ mt: 2 }}
             onClick={() => setShowResultForm(true)}
           >
-            Enter Result
+            🏆 Entrer le Résultat
           </Button>
         </CardContent>
       </Card>
@@ -84,7 +84,7 @@ const GameCard: React.FC<GameCardProps> = ({ game, onResultSubmitted }) => {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Enter Game Result</DialogTitle>
+        <DialogTitle>🏆 Entrer le Résultat de la Partie</DialogTitle>
         <DialogContent>
           <ResultEntryForm
             game={game}

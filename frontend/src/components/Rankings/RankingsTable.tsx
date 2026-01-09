@@ -41,7 +41,7 @@ const RankingsTable: React.FC<RankingsTableProps> = ({ refreshTrigger }) => {
   if (loading) {
     return (
       <Paper elevation={3} sx={{ p: 3 }}>
-        <Typography>Loading rankings...</Typography>
+        <Typography>🐔 Chargement du classement...</Typography>
       </Paper>
     );
   }
@@ -50,10 +50,10 @@ const RankingsTable: React.FC<RankingsTableProps> = ({ refreshTrigger }) => {
     return (
       <Paper elevation={3} sx={{ p: 3 }}>
         <Typography variant="h5" gutterBottom>
-          Rankings
+          🏆 Classement
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          No rankings yet. Play some games to see the leaderboard!
+          Aucun classement pour l'instant. Jouez quelques parties pour voir le tableau des scores!
         </Typography>
       </Paper>
     );
@@ -62,21 +62,21 @@ const RankingsTable: React.FC<RankingsTableProps> = ({ refreshTrigger }) => {
   return (
     <Paper elevation={3} sx={{ p: 3 }}>
       <Typography variant="h5" gutterBottom>
-        Rankings
+        🏆 Classement
       </Typography>
 
       <TableContainer>
         <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-              <TableCell><strong>Rank</strong></TableCell>
-              <TableCell><strong>Team</strong></TableCell>
-              <TableCell><strong>Players</strong></TableCell>
+              <TableCell><strong>Rang</strong></TableCell>
+              <TableCell><strong>Poulailler</strong></TableCell>
+              <TableCell><strong>Joueurs</strong></TableCell>
               <TableCell align="center"><strong>Score</strong></TableCell>
-              <TableCell align="center"><strong>Games</strong></TableCell>
-              <TableCell align="center"><strong>Won</strong></TableCell>
-              <TableCell align="center"><strong>Lost</strong></TableCell>
-              <TableCell align="center"><strong>Win Rate</strong></TableCell>
+              <TableCell align="center"><strong>Parties</strong></TableCell>
+              <TableCell align="center"><strong>Gagnées</strong></TableCell>
+              <TableCell align="center"><strong>Perdues</strong></TableCell>
+              <TableCell align="center"><strong>% Victoire</strong></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

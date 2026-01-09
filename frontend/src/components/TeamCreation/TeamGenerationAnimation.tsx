@@ -7,6 +7,7 @@ import {
   keyframes,
 } from '@mui/material';
 import { Team } from '../../types/team';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface TeamGenerationAnimationProps {
   open: boolean;
@@ -53,13 +54,13 @@ const SpinningWheel = styled(Box, {
   width: '280px',
   height: '280px',
   borderRadius: '50%',
-  border: '12px solid #1976d2',
+  border: '12px solid #FFD700',
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-  boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+  background: 'linear-gradient(135deg, #00E5FF 0%, #FF4081 50%, #FFD700 100%)',
+  boxShadow: '0 10px 40px rgba(255,215,0,0.5)',
   animation: phase === 'spinning' ? `${spin} 0.8s linear infinite` :
              phase === 'slowing' ? `${slowSpin} 2s ease-out forwards` :
              'none',
@@ -104,6 +105,7 @@ const TeamGenerationAnimation: React.FC<TeamGenerationAnimationProps> = ({
   names,
   teams,
 }) => {
+  const { t } = useLanguage();
   const [phase, setPhase] = useState<'spinning' | 'slowing' | 'stopped' | 'revealing'>('spinning');
 
   useEffect(() => {
@@ -181,10 +183,10 @@ const TeamGenerationAnimation: React.FC<TeamGenerationAnimationProps> = ({
                 }}
               >
                 <Typography variant="h4" sx={{ fontWeight: 'bold', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
-                  ⚡
+                  🐔
                 </Typography>
                 <Typography variant="caption" sx={{ fontSize: '0.7rem', opacity: 0.9 }}>
-                  {phase === 'spinning' ? 'Shuffling' : 'Pairing'}
+                  {phase === 'spinning' ? t('animation.scrambling').split('...')[0].replace('🐔 ', '') : t('animation.hatching').split('...')[0].replace('🥚 ', '')}
                 </Typography>
               </Box>
             </SpinningWheel>
@@ -198,9 +200,9 @@ const TeamGenerationAnimation: React.FC<TeamGenerationAnimationProps> = ({
                 textAlign: 'center',
               }}
             >
-              {phase === 'spinning' && 'Generating Teams...'}
-              {phase === 'slowing' && 'Creating Perfect Pairs...'}
-              {phase === 'stopped' && 'Teams Ready!'}
+              {phase === 'spinning' && t('animation.scrambling')}
+              {phase === 'slowing' && t('animation.hatching')}
+              {phase === 'stopped' && t('animation.ready')}
             </Typography>
           </>
         ) : (
@@ -215,7 +217,7 @@ const TeamGenerationAnimation: React.FC<TeamGenerationAnimationProps> = ({
                 textAlign: 'center',
               }}
             >
-              ✨ Teams Created! ✨
+              {t('animation.created')}
             </Typography>
 
             <Box

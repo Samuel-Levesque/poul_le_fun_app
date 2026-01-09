@@ -16,7 +16,7 @@ const RankingsPage: React.FC = () => {
           variant="outlined"
           onClick={handleRefresh}
         >
-          Refresh Rankings
+          🔄 Rafraîchir le Classement
         </Button>
       </Box>
       <RankingsTable refreshTrigger={refreshTrigger} />

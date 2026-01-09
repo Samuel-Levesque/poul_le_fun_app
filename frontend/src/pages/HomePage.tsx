@@ -14,9 +14,11 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { clearDatabase } from '../api/admin';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [clearDialogOpen, setClearDialogOpen] = useState(false);
   const [clearing, setClearing] = useState(false);
   const [error, setError] = useState('');
@@ -34,7 +36,11 @@ const HomePage: React.FC = () => {
       setClearDialogOpen(false);
       setSnackbar({
         open: true,
-        message: `Database cleared! Deleted ${result.deleted.teams} teams, ${result.deleted.games} games, and ${result.deleted.results} results.`,
+        message: t('home.admin.successMessage', {
+          teams: result.deleted.teams.toString(),
+          games: result.deleted.games.toString(),
+          results: result.deleted.results.toString(),
+        }),
       });
     } catch (err: any) {
       setError(err.response?.data?.error || 'Failed to clear database');
@@ -49,77 +55,85 @@ const HomePage: React.FC = () => {
 
   return (
     <Box>
-      <Paper elevation={3} sx={{ p: 4, mb: 3, textAlign: 'center' }}>
-        <Typography variant="h3" gutterBottom>
-          Poul Le Fun Tournament
+      <Paper elevation={3} sx={{
+        p: 4,
+        mb: 3,
+        textAlign: 'center',
+        background: 'linear-gradient(135deg, #00E5FF 0%, #FF4081 50%, #FFD700 100%)',
+      }}>
+        <Typography variant="h3" gutterBottom sx={{ color: '#212121', textShadow: '3px 3px 0px rgba(255,255,255,0.5)' }}>
+          {t('home.title')}
         </Typography>
-        <Typography variant="h6" color="text.secondary" gutterBottom>
-          Card Tournament Management System
+        <Typography variant="h6" gutterBottom sx={{ color: '#212121', fontWeight: 'bold' }}>
+          {t('home.subtitle')}
+        </Typography>
+        <Typography variant="body1" sx={{ color: '#212121', fontStyle: 'italic', mt: 1 }}>
+          {t('home.tagline')}
         </Typography>
       </Paper>
 
       <Paper elevation={3} sx={{ p: 3 }}>
         <Typography variant="h5" gutterBottom>
-          Getting Started
+          {t('home.howToPlay')}
         </Typography>
         <Typography variant="body1" paragraph>
-          Welcome to the Poul Le Fun tournament management app! Here's how to run your tournament:
+          {t('home.welcome')}
         </Typography>
 
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 3 }}>
           <Box>
-            <Typography variant="h6">1. Create Teams</Typography>
+            <Typography variant="h6">{t('home.step1.title')}</Typography>
             <Typography variant="body2" color="text.secondary">
-              Enter player names to automatically generate random team pairings.
+              {t('home.step1.description')}
             </Typography>
             <Button
               variant="contained"
               onClick={() => navigate('/teams')}
               sx={{ mt: 1 }}
             >
-              Go to Teams
+              {t('home.step1.button')}
             </Button>
           </Box>
 
           <Box>
-            <Typography variant="h6">2. Generate Games</Typography>
+            <Typography variant="h6">{t('home.step2.title')}</Typography>
             <Typography variant="body2" color="text.secondary">
-              Generate fair matchups ensuring all teams play equally and no duplicate games.
+              {t('home.step2.description')}
             </Typography>
             <Button
               variant="contained"
               onClick={() => navigate('/games')}
               sx={{ mt: 1 }}
             >
-              Go to Games
+              {t('home.step2.button')}
             </Button>
           </Box>
 
           <Box>
-            <Typography variant="h6">3. View Rankings</Typography>
+            <Typography variant="h6">{t('home.step3.title')}</Typography>
             <Typography variant="body2" color="text.secondary">
-              Track scores, wins, losses, and overall standings.
+              {t('home.step3.description')}
             </Typography>
             <Button
               variant="contained"
               onClick={() => navigate('/rankings')}
               sx={{ mt: 1 }}
             >
-              Go to Rankings
+              {t('home.step3.button')}
             </Button>
           </Box>
 
           <Box>
-            <Typography variant="h6">4. Match Matrix</Typography>
+            <Typography variant="h6">{t('home.step4.title')}</Typography>
             <Typography variant="body2" color="text.secondary">
-              Visual overview of all matchups played and remaining.
+              {t('home.step4.description')}
             </Typography>
             <Button
               variant="contained"
               onClick={() => navigate('/matrix')}
               sx={{ mt: 1 }}
             >
-              Go to Matrix
+              {t('home.step4.button')}
             </Button>
           </Box>
         </Box>
@@ -131,26 +145,26 @@ const HomePage: React.FC = () => {
           p: 3,
           mt: 3,
           backgroundColor: '#fff3e0',
-          border: '2px solid #ff9800',
+          border: '4px solid #ff9800',
         }}
       >
         <Typography variant="h5" gutterBottom color="error">
-          Administration
+          {t('home.admin.title')}
         </Typography>
         <Typography variant="body1" paragraph>
-          Danger zone: Use these options with caution.
+          {t('home.admin.warning')}
         </Typography>
         <Button
           variant="contained"
           color="error"
           onClick={() => setClearDialogOpen(true)}
         >
-          Clear All Data
+          {t('home.admin.clearButton')}
         </Button>
       </Paper>
 
       <Dialog open={clearDialogOpen} onClose={() => setClearDialogOpen(false)}>
-        <DialogTitle>Clear All Data?</DialogTitle>
+        <DialogTitle>{t('home.admin.dialogTitle')}</DialogTitle>
         <DialogContent>
           {error && (
             <Alert severity="error" sx={{ mb: 2 }}>
@@ -158,22 +172,22 @@ const HomePage: React.FC = () => {
             </Alert>
           )}
           <DialogContentText>
-            Are you sure you want to clear the entire database?
+            {t('home.admin.dialogContent')}
             <br />
             <br />
-            <strong>This will permanently delete:</strong>
+            <strong>{t('home.admin.dialogWarning')}</strong>
             <ul>
-              <li>All teams</li>
-              <li>All games</li>
-              <li>All results</li>
+              <li>{t('home.admin.deleteTeams')}</li>
+              <li>{t('home.admin.deleteGames')}</li>
+              <li>{t('home.admin.deleteResults')}</li>
             </ul>
             <br />
-            <strong>This action cannot be undone!</strong>
+            <strong>{t('home.admin.cannotUndo')}</strong>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setClearDialogOpen(false)} disabled={clearing}>
-            Cancel
+            {t('home.admin.cancel')}
           </Button>
           <Button
             onClick={handleClearDatabase}
@@ -181,7 +195,7 @@ const HomePage: React.FC = () => {
             variant="contained"
             disabled={clearing}
           >
-            {clearing ? 'Clearing...' : 'Yes, Clear Everything'}
+            {clearing ? t('home.admin.clearing') : t('home.admin.confirm')}
           </Button>
         </DialogActions>
       </Dialog>

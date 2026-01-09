@@ -9,12 +9,14 @@ import {
 } from '@mui/material';
 import { createTeamManually } from '../../api/teams';
 import { Team } from '../../types/team';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface ManualTeamCreationProps {
   onTeamCreated: (team: Team) => void;
 }
 
 const ManualTeamCreation: React.FC<ManualTeamCreationProps> = ({ onTeamCreated }) => {
+  const { t } = useLanguage();
   const [player1, setPlayer1] = useState('');
   const [player2, setPlayer2] = useState('');
   const [error, setError] = useState('');
@@ -46,10 +48,10 @@ const ManualTeamCreation: React.FC<ManualTeamCreationProps> = ({ onTeamCreated }
   return (
     <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
       <Typography variant="h5" gutterBottom>
-        Create Single Team Manually
+        {t('manualTeam.title')}
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-        Enter two player names to create a specific team pairing.
+        {t('manualTeam.subtitle')}
       </Typography>
 
       {error && (
@@ -62,19 +64,19 @@ const ManualTeamCreation: React.FC<ManualTeamCreationProps> = ({ onTeamCreated }
         <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
           <TextField
             fullWidth
-            label="Player 1"
+            label={t('manualTeam.chick1Label')}
             value={player1}
             onChange={(e) => setPlayer1(e.target.value)}
             disabled={loading}
-            placeholder="Enter first player name"
+            placeholder={t('manualTeam.placeholder1')}
           />
           <TextField
             fullWidth
-            label="Player 2"
+            label={t('manualTeam.chick2Label')}
             value={player2}
             onChange={(e) => setPlayer2(e.target.value)}
             disabled={loading}
-            placeholder="Enter second player name"
+            placeholder={t('manualTeam.placeholder2')}
           />
         </Box>
 
@@ -84,7 +86,7 @@ const ManualTeamCreation: React.FC<ManualTeamCreationProps> = ({ onTeamCreated }
           disabled={loading || !player1.trim() || !player2.trim()}
           fullWidth
         >
-          {loading ? 'Creating...' : 'Create Team'}
+          {loading ? t('manualTeam.creating') : t('manualTeam.createButton')}
         </Button>
       </Box>
     </Paper>

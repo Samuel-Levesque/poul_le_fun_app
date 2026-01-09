@@ -69,12 +69,12 @@ const GameGenerator: React.FC<GameGeneratorProps> = ({ onGameCreated }) => {
   return (
     <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
       <Typography variant="h5" gutterBottom>
-        Generate Next Game
+        🎮 Générer la Prochaine Partie
       </Typography>
 
       <Box sx={{ mb: 2 }}>
         <Typography variant="body2" color="text.secondary">
-          Available teams not currently playing: {availableTeams.length}
+          Poulaillers disponibles (pas en train de jouer): {availableTeams.length}
         </Typography>
       </Box>
 
@@ -88,7 +88,7 @@ const GameGenerator: React.FC<GameGeneratorProps> = ({ onGameCreated }) => {
         <Card sx={{ mb: 2, backgroundColor: '#e3f2fd' }}>
           <CardContent>
             <Typography variant="h6" gutterBottom>
-              Generated Game
+              ✨ Partie Générée
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <Chip
@@ -122,7 +122,7 @@ const GameGenerator: React.FC<GameGeneratorProps> = ({ onGameCreated }) => {
             disabled={loading || availableTeams.length < 2}
             fullWidth
           >
-            {loading ? 'Generating...' : 'Generate Next Game'}
+            {loading ? '🥚 Génération...' : '🎮 Générer Prochaine Partie'}
           </Button>
           <Button
             variant="outlined"
@@ -131,7 +131,7 @@ const GameGenerator: React.FC<GameGeneratorProps> = ({ onGameCreated }) => {
             disabled={availableTeams.length < 2}
             fullWidth
           >
-            Manual Selection
+            ✋ Sélection Manuelle
           </Button>
         </Box>
       )}

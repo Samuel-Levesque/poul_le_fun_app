@@ -16,7 +16,7 @@ const MatrixPage: React.FC = () => {
           variant="outlined"
           onClick={handleRefresh}
         >
-          Refresh Matrix
+          🔄 Rafraîchir la Matrice
         </Button>
       </Box>
       <MatchMatrix refreshTrigger={refreshTrigger} />

@@ -37,19 +37,19 @@ const CurrentGamesList: React.FC<CurrentGamesListProps> = ({ refreshTrigger, onR
   if (loading) {
     return (
       <Paper elevation={3} sx={{ p: 3 }}>
-        <Typography>Loading current games...</Typography>
+        <Typography>🐔 Chargement des parties en cours...</Typography>
       </Paper>
     );
   }
 
   if (games.length === 0) {
     return (
-      <Paper elevation={3} sx={{ p: 3 }}>
+      <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
         <Typography variant="h5" gutterBottom>
-          Current Games
+          🎮 Parties en Cours
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          No games currently in progress. Generate a new game and start it!
+          Aucune partie en cours. Générez une nouvelle partie pour commencer!
         </Typography>
       </Paper>
     );
@@ -58,7 +58,7 @@ const CurrentGamesList: React.FC<CurrentGamesListProps> = ({ refreshTrigger, onR
   return (
     <Paper elevation={3} sx={{ p: 3 }}>
       <Typography variant="h5" gutterBottom>
-        Current Games ({games.length})
+        🎮 Parties en Cours ({games.length})
       </Typography>
 
       <Grid container spacing={2}>

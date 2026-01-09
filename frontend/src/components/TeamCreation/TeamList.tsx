@@ -19,6 +19,7 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Team } from '../../types/team';
 import { deleteTeam } from '../../api/teams';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface TeamListProps {
   teams: Team[];
@@ -26,6 +27,7 @@ interface TeamListProps {
 }
 
 const TeamList: React.FC<TeamListProps> = ({ teams, onTeamDeleted }) => {
+  const { t } = useLanguage();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [teamToDelete, setTeamToDelete] = useState<Team | null>(null);
   const [error, setError] = useState('');
@@ -63,9 +65,12 @@ const TeamList: React.FC<TeamListProps> = ({ teams, onTeamDeleted }) => {
 
   if (teams.length === 0) {
     return (
-      <Paper elevation={3} sx={{ p: 3 }}>
+      <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
+        <Typography variant="h6" color="text.secondary" gutterBottom>
+          {t('teamList.emptyTitle')}
+        </Typography>
         <Typography variant="body1" color="text.secondary">
-          No teams created yet. Create teams to get started!
+          {t('teamList.emptyMessage')}
         </Typography>
       </Paper>
     );
@@ -75,7 +80,7 @@ const TeamList: React.FC<TeamListProps> = ({ teams, onTeamDeleted }) => {
     <>
       <Paper elevation={3} sx={{ p: 3 }}>
         <Typography variant="h5" gutterBottom>
-          Teams ({teams.length})
+          {t('teamList.title', { count: teams.length })}
         </Typography>
 
         <List>
@@ -117,7 +122,7 @@ const TeamList: React.FC<TeamListProps> = ({ teams, onTeamDeleted }) => {
       </Paper>
 
       <Dialog open={deleteDialogOpen} onClose={handleDeleteCancel}>
-        <DialogTitle>Delete Team</DialogTitle>
+        <DialogTitle>{t('teamList.deleteDialog.title')}</DialogTitle>
         <DialogContent>
           {error && (
             <Alert severity="error" sx={{ mb: 2 }}>
@@ -125,17 +130,17 @@ const TeamList: React.FC<TeamListProps> = ({ teams, onTeamDeleted }) => {
             </Alert>
           )}
           <DialogContentText>
-            Are you sure you want to delete <strong>{teamToDelete?.name}</strong>?
+            {t('teamList.deleteDialog.message', { teamName: teamToDelete?.name || '' })}
             <br />
             ({teamToDelete?.player1} & {teamToDelete?.player2})
             <br />
             <br />
-            This action cannot be undone. Teams that have played games cannot be deleted.
+            {t('teamList.deleteDialog.warning')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteCancel} disabled={deleting}>
-            Cancel
+            {t('teamList.deleteDialog.cancel')}
           </Button>
           <Button
             onClick={handleDeleteConfirm}
@@ -143,7 +148,7 @@ const TeamList: React.FC<TeamListProps> = ({ teams, onTeamDeleted }) => {
             variant="contained"
             disabled={deleting}
           >
-            {deleting ? 'Deleting...' : 'Delete'}
+            {deleting ? t('teamList.deleteDialog.deleting') : t('teamList.deleteDialog.confirm')}
           </Button>
         </DialogActions>
       </Dialog>

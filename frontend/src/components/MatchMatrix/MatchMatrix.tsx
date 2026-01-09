@@ -63,7 +63,7 @@ const MatchMatrix: React.FC<MatchMatrixProps> = ({ refreshTrigger }) => {
   if (loading) {
     return (
       <Paper elevation={3} sx={{ p: 3 }}>
-        <Typography>Loading match matrix...</Typography>
+        <Typography>🐔 Chargement de la matrice des parties...</Typography>
       </Paper>
     );
   }
@@ -72,10 +72,10 @@ const MatchMatrix: React.FC<MatchMatrixProps> = ({ refreshTrigger }) => {
     return (
       <Paper elevation={3} sx={{ p: 3 }}>
         <Typography variant="h5" gutterBottom>
-          Match Matrix
+          🎮 Matrice des Parties
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          No teams yet. Create teams to see the match matrix!
+          Aucun poulailler pour l'instant. Créez des poulaillers pour voir la matrice des parties!
         </Typography>
       </Paper>
     );
@@ -84,10 +84,10 @@ const MatchMatrix: React.FC<MatchMatrixProps> = ({ refreshTrigger }) => {
   return (
     <Paper elevation={3} sx={{ p: 3 }}>
       <Typography variant="h5" gutterBottom>
-        Match Matrix
+        🎮 Matrice des Parties
       </Typography>
       <Typography variant="body2" color="text.secondary" gutterBottom>
-        ✓ = Completed | ▶ = In Progress | - = Not Played
+        ✓ = Terminée | ▶ = En Cours | - = Non Jouée
       </Typography>
 
       <Box sx={{ overflowX: 'auto', mt: 3 }}>
@@ -95,7 +95,7 @@ const MatchMatrix: React.FC<MatchMatrixProps> = ({ refreshTrigger }) => {
           <thead>
             <tr>
               <th style={{ padding: '8px', border: '1px solid #e0e0e0', backgroundColor: '#f5f5f5' }}>
-                Team
+                Poulailler
               </th>
               {teams.map((team) => (
                 <th

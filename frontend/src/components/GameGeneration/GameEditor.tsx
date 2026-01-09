@@ -29,12 +29,12 @@ const GameEditor: React.FC<GameEditorProps> = ({ availableTeams, onGameCreated, 
     setError('');
 
     if (!team1Id || !team2Id) {
-      setError('Please select both teams');
+      setError('Veuillez sélectionner les deux poulaillers');
       return;
     }
 
     if (team1Id === team2Id) {
-      setError('Teams must be different');
+      setError('Les poulaillers doivent être différents');
       return;
     }
 
@@ -53,7 +53,7 @@ const GameEditor: React.FC<GameEditorProps> = ({ availableTeams, onGameCreated, 
   return (
     <Box component="form" onSubmit={handleSubmit}>
       <Typography variant="h6" gutterBottom>
-        Manual Game Selection
+        ✋ Sélection Manuelle de Partie
       </Typography>
 
       {error && (
@@ -63,10 +63,10 @@ const GameEditor: React.FC<GameEditorProps> = ({ availableTeams, onGameCreated, 
       )}
 
       <FormControl fullWidth sx={{ mb: 2 }}>
-        <InputLabel>Team 1</InputLabel>
+        <InputLabel>Poulailler 1</InputLabel>
         <Select
           value={team1Id}
-          label="Team 1"
+          label="Poulailler 1"
           onChange={(e) => setTeam1Id(e.target.value as number)}
           disabled={loading}
         >
@@ -79,10 +79,10 @@ const GameEditor: React.FC<GameEditorProps> = ({ availableTeams, onGameCreated, 
       </FormControl>
 
       <FormControl fullWidth sx={{ mb: 2 }}>
-        <InputLabel>Team 2</InputLabel>
+        <InputLabel>Poulailler 2</InputLabel>
         <Select
           value={team2Id}
-          label="Team 2"
+          label="Poulailler 2"
           onChange={(e) => setTeam2Id(e.target.value as number)}
           disabled={loading}
         >
@@ -102,7 +102,7 @@ const GameEditor: React.FC<GameEditorProps> = ({ availableTeams, onGameCreated, 
           disabled={loading || !team1Id || !team2Id}
           fullWidth
         >
-          {loading ? 'Creating...' : 'Create Game'}
+          {loading ? '🥚 Création...' : '🎮 Créer la Partie'}
         </Button>
         <Button
           variant="outlined"
@@ -110,7 +110,7 @@ const GameEditor: React.FC<GameEditorProps> = ({ availableTeams, onGameCreated, 
           disabled={loading}
           fullWidth
         >
-          Cancel
+          Annuler
         </Button>
       </Box>
     </Box>

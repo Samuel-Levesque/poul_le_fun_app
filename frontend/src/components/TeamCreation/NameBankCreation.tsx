@@ -11,12 +11,14 @@ import {
 import { createTeams } from '../../api/teams';
 import { Team } from '../../types/team';
 import TeamGenerationAnimation from './TeamGenerationAnimation';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface NameBankCreationProps {
   onTeamsCreated: (teams: Team[]) => void;
 }
 
 const NameBankCreation: React.FC<NameBankCreationProps> = ({ onTeamsCreated }) => {
+  const { t } = useLanguage();
   const [names, setNames] = useState<string[]>([]);
   const [currentInput, setCurrentInput] = useState('');
   const [error, setError] = useState('');
@@ -29,12 +31,12 @@ const NameBankCreation: React.FC<NameBankCreationProps> = ({ onTeamsCreated }) =
     const trimmedName = currentInput.trim();
 
     if (!trimmedName) {
-      setError('Please enter a name');
+      setError(t('nameBank.errors.enterName'));
       return;
     }
 
     if (names.includes(trimmedName)) {
-      setError('This name has already been added');
+      setError(t('nameBank.errors.duplicate'));
       return;
     }
 
@@ -46,13 +48,6 @@ const NameBankCreation: React.FC<NameBankCreationProps> = ({ onTeamsCreated }) =
     setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleAddName();
-    }
   };
 
   const handleRemoveName = (nameToRemove: string) => {
@@ -69,12 +64,12 @@ const NameBankCreation: React.FC<NameBankCreationProps> = ({ onTeamsCreated }) =
   const handleGenerateTeams = async () => {
     // Validation
     if (names.length < 2) {
-      setError('At least 2 players required');
+      setError(t('nameBank.errors.minPlayers'));
       return;
     }
 
     if (names.length % 2 !== 0) {
-      setError('Number of players must be even');
+      setError(t('nameBank.errors.evenPlayers'));
       return;
     }
 
@@ -113,11 +108,11 @@ const NameBankCreation: React.FC<NameBankCreationProps> = ({ onTeamsCreated }) =
   return (
     <>
       <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
-        <Typography variant="h5" gutterBottom>
-          Build Team Roster
+        <Typography variant="h5" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          {t('nameBank.title')}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          Add player names one at a time. Press Enter or click Add.
+          {t('nameBank.subtitle')}
         </Typography>
 
         {/* Input Row */}
@@ -125,11 +120,16 @@ const NameBankCreation: React.FC<NameBankCreationProps> = ({ onTeamsCreated }) =
           <TextField
             fullWidth
             inputRef={inputRef}
-            label="Player Name"
-            placeholder="Enter player name..."
+            label={t('nameBank.chickNameLabel')}
+            placeholder={t('nameBank.placeholder')}
             value={currentInput}
             onChange={(e) => setCurrentInput(e.target.value)}
-            onKeyPress={handleKeyPress}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleAddName();
+              }
+            }}
             disabled={generating}
             autoFocus
           />
@@ -137,9 +137,9 @@ const NameBankCreation: React.FC<NameBankCreationProps> = ({ onTeamsCreated }) =
             variant="contained"
             onClick={handleAddName}
             disabled={generating || !currentInput.trim()}
-            sx={{ minWidth: 100 }}
+            sx={{ minWidth: 120 }}
           >
-            Add
+            {t('nameBank.addButton')}
           </Button>
         </Box>
 
@@ -153,9 +153,9 @@ const NameBankCreation: React.FC<NameBankCreationProps> = ({ onTeamsCreated }) =
         {/* Player Count */}
         <Box sx={{ mb: 2 }}>
           <Typography variant="body1" sx={{ color: playerCountColor, fontWeight: 'medium' }}>
-            Players ready: {names.length}
-            {names.length > 0 && names.length % 2 === 0 && ' ✓ (even number)'}
-            {names.length > 0 && names.length % 2 !== 0 && ' ⚠ (need even number)'}
+            {t('nameBank.chicksReady', { count: names.length })}
+            {names.length > 0 && names.length % 2 === 0 && t('nameBank.evenNumber')}
+            {names.length > 0 && names.length % 2 !== 0 && t('nameBank.oddNumber')}
           </Typography>
         </Box>
 
@@ -169,7 +169,7 @@ const NameBankCreation: React.FC<NameBankCreationProps> = ({ onTeamsCreated }) =
             mb: 2
           }}>
             <Typography variant="body2" color="text.secondary">
-              Start by adding player names to create teams
+              {t('nameBank.emptyState')}
             </Typography>
           </Box>
         ) : (
@@ -202,7 +202,7 @@ const NameBankCreation: React.FC<NameBankCreationProps> = ({ onTeamsCreated }) =
             onClick={handleClearAll}
             disabled={generating || names.length === 0}
           >
-            Clear All
+            {t('nameBank.clearButton')}
           </Button>
           <Button
             variant="contained"
@@ -212,7 +212,7 @@ const NameBankCreation: React.FC<NameBankCreationProps> = ({ onTeamsCreated }) =
             size="large"
             sx={{ minWidth: 200 }}
           >
-            {generating ? 'Generating...' : 'Generate Teams'}
+            {generating ? t('nameBank.hatching') : t('nameBank.hatchButton')}
           </Button>
         </Box>
       </Paper>

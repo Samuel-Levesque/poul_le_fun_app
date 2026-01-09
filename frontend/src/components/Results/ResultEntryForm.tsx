@@ -31,13 +31,13 @@ const ResultEntryForm: React.FC<ResultEntryFormProps> = ({ game, onResultSubmitt
     setError('');
 
     if (!winningTeamId) {
-      setError('Please select the winning team');
+      setError('Veuillez sélectionner le poulailler gagnant');
       return;
     }
 
     const scoreNum = parseInt(score);
     if (isNaN(scoreNum) || scoreNum < 0) {
-      setError('Please enter a valid score (non-negative number)');
+      setError('Veuillez entrer un score valide (nombre non négatif)');
       return;
     }
 
@@ -47,7 +47,7 @@ const ResultEntryForm: React.FC<ResultEntryFormProps> = ({ game, onResultSubmitt
       await createResult(game.id, winningTeamId, scoreNum);
       onResultSubmitted();
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to submit result');
+      setError(err.response?.data?.error || 'Échec de la soumission du résultat');
     } finally {
       setLoading(false);
     }
@@ -62,7 +62,7 @@ const ResultEntryForm: React.FC<ResultEntryFormProps> = ({ game, onResultSubmitt
       )}
 
       <FormControl component="fieldset" sx={{ mb: 3, width: '100%' }}>
-        <FormLabel component="legend">Select Winning Team</FormLabel>
+        <FormLabel component="legend">Sélectionner le Poulailler Gagnant</FormLabel>
         <RadioGroup
           value={winningTeamId}
           onChange={(e) => setWinningTeamId(parseInt(e.target.value))}
@@ -127,7 +127,7 @@ const ResultEntryForm: React.FC<ResultEntryFormProps> = ({ game, onResultSubmitt
         fullWidth
         type="number"
         label="Score"
-        placeholder="Enter winning team's score"
+        placeholder="Entrer le score du poulailler gagnant"
         value={score}
         onChange={(e) => setScore(e.target.value)}
         disabled={loading}
@@ -143,7 +143,7 @@ const ResultEntryForm: React.FC<ResultEntryFormProps> = ({ game, onResultSubmitt
           disabled={loading || !winningTeamId || !score}
           fullWidth
         >
-          {loading ? 'Submitting...' : 'Submit Result'}
+          {loading ? '🥚 Soumission...' : '🏆 Soumettre le Résultat'}
         </Button>
         <Button
           variant="outlined"
@@ -151,7 +151,7 @@ const ResultEntryForm: React.FC<ResultEntryFormProps> = ({ game, onResultSubmitt
           disabled={loading}
           fullWidth
         >
-          Cancel
+          Annuler
         </Button>
       </Box>
     </Box>

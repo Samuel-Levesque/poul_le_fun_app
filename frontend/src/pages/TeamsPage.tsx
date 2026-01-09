@@ -39,7 +39,7 @@ const TeamsPage: React.FC = () => {
     setTeams(teams.filter(team => team.id !== teamId));
     setSnackbar({
       open: true,
-      message: 'Team deleted successfully',
+      message: 'Poulailler supprimé avec succès',
       severity: 'success',
     });
   };
