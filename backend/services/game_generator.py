@@ -115,8 +115,14 @@ class GameGenerator:
         if team1_id > team2_id:
             team1_id, team2_id = team2_id, team1_id
 
-        # Create and return game (not yet committed)
-        game = Game(team1_id=team1_id, team2_id=team2_id)
+        # Create game and start it immediately
+        from datetime import datetime
+        game = Game(
+            team1_id=team1_id,
+            team2_id=team2_id,
+            status='in_progress',
+            started_at=datetime.utcnow()
+        )
         self.db.session.add(game)
         self.db.session.commit()
 

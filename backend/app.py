@@ -15,10 +15,12 @@ def create_app():
     from routes.teams import teams_bp
     from routes.games import games_bp
     from routes.results import results_bp
+    from routes.admin import admin_bp
 
     app.register_blueprint(teams_bp, url_prefix='/api')
     app.register_blueprint(games_bp, url_prefix='/api')
     app.register_blueprint(results_bp, url_prefix='/api')
+    app.register_blueprint(admin_bp, url_prefix='/api/admin')
 
     # Handle OPTIONS requests before routing
     @app.before_request

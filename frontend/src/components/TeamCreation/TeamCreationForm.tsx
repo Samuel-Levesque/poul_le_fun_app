@@ -30,8 +30,8 @@ const TeamCreationForm: React.FC<TeamCreationFormProps> = ({ onTeamsCreated }) =
       .filter(p => p.length > 0);
 
     // Validate
-    if (players.length < 4) {
-      setError('Please enter at least 4 player names');
+    if (players.length < 2) {
+      setError('Please enter at least 2 player names');
       return;
     }
 
@@ -68,10 +68,11 @@ const TeamCreationForm: React.FC<TeamCreationFormProps> = ({ onTeamsCreated }) =
   return (
     <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
       <Typography variant="h5" gutterBottom>
-        Create Teams
+        Create Teams with Random Pairing
       </Typography>
       <Typography variant="body2" color="text.secondary" gutterBottom>
-        Enter player names separated by commas (e.g., Alice, Bob, Charlie, Diana)
+        Enter player names separated by commas. Teams will be randomly generated.
+        Minimum 2 players (e.g., Alice, Bob or Alice, Bob, Charlie, Diana)
       </Typography>
 
       <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
