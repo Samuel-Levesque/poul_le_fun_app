@@ -1,0 +1,15 @@
+[run]
+omit =
+    tests/*
+    test_backend.py
+    diagnose.py
+    */venv/*
+    */virtualenv/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
