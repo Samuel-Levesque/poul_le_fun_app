@@ -175,6 +175,51 @@ The app uses a fairness-based algorithm to generate games:
 
 This ensures all teams play equally and no matchup is repeated.
 
+## Testing
+
+![Test Suite](https://github.com/Samuel-Levesque/poul_le_fun_app/actions/workflows/test.yml/badge.svg)
+
+### Backend Tests (97% Coverage)
+
+**112 passing tests** covering:
+- Game generation algorithm
+- Ranking calculations
+- API endpoints
+- Database models
+- Full tournament workflows
+
+Run tests:
+```bash
+cd backend
+pytest                          # Run all tests
+pytest --cov=. --cov-report=html  # With coverage report
+```
+
+### Frontend Tests
+
+Comprehensive tests for:
+- API client layer
+- React components
+- User interactions
+
+Run tests:
+```bash
+cd frontend
+npm test                        # Run all tests
+npm run test:ui                 # Interactive UI
+npm run test:coverage          # With coverage
+```
+
+### CI/CD Pipeline
+
+Automated testing runs on every pull request:
+- ✅ Backend tests with 97% coverage
+- ✅ Frontend tests
+- ✅ Branch protection enforced
+- ✅ Tests must pass before merge
+
+See [CI/CD Documentation](.github/workflows/README.md) for details.
+
 ## Development
 
 ### Backend Development
@@ -183,6 +228,7 @@ This ensures all teams play equally and no matchup is repeated.
 - Routes (API endpoints) are in `backend/routes/`
 - Business logic is in `backend/services/`
 - Database is auto-created on first run
+- Tests are in `backend/tests/`
 
 ### Frontend Development
 
@@ -190,6 +236,7 @@ This ensures all teams play equally and no matchup is repeated.
 - Pages are in `frontend/src/pages/`
 - API calls are in `frontend/src/api/`
 - Types are in `frontend/src/types/`
+- Tests are in `frontend/src/**/__tests__/`
 
 ### Building for Production
 
